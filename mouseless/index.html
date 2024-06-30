@@ -75,7 +75,7 @@
           class="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden mt-2 lg:mt-0 bg-white lg:bg-transparent text-black p-4 lg:p-0 z-20"
           id="nav-content"
         >
-          <ul class="list-reset lg:flex justify-end flex-1 items-center">
+          <!-- <ul class="list-reset lg:flex justify-end flex-1 items-center">
             <li class="mr-3">
               <a
                 id="navAction"
@@ -84,7 +84,7 @@
                 >Pricing</a
               >
             </li>
-          </ul>
+          </ul> -->
         </div>
       </div>
       <hr class="border-b border-gray-100 opacity-25 my-0 py-0" />
@@ -286,6 +286,11 @@
                 <span class="text-base">/ One year </span>
                 <span class="text-base text-red-500">(50% OFF)</span>
               </div>
+              <div class="w-full pt-6 text-4xl font-bold text-center">
+                $88
+                <span class="text-base">/ Forever </span>
+                <span class="text-base text-red-500">(30% OFF)</span>
+              </div>
               <div class="flex items-center justify-center">
                 <a
                   id="subscribe-btn"
@@ -307,7 +312,7 @@
       </div>
       <div class="flex items-center justify-center">
         <a
-          href="https://mouseless.app/download"
+          href="#"
           class="mr-6 inline-block bg-gray-900 text-white text-center font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
         >
           <span>Donwload For MacOS</span>
@@ -330,6 +335,17 @@
         </a>
       </div>
     </section>
+    <footer
+      class="bg-white flex flex-row text-2xl justify-center items-center border-b py-8 m-auto text-gray-800"
+    >
+      <a href="#" class="hover:underline">FAQ</a>
+      <a
+        href="mailto:hangboss97@gmail.com?subject=Suggesstion/Feedback%20about%20Mouseless&body=This%20is%20some%20content."
+        class="ml-6 hover:underline"
+      >
+        Contact Us
+      </a>
+    </footer>
     <script>
       document
         .getElementById('subscribe-btn')
@@ -359,10 +375,12 @@
 
         if (scrollpos > 10) {
           header.classList.add('bg-white')
-          navaction.classList.remove('bg-white')
-          navaction.classList.add('gradient')
-          navaction.classList.remove('text-gray-800')
-          navaction.classList.add('text-white')
+          if (navaction) {
+            navaction.classList.remove('bg-white')
+            navaction.classList.add('gradient')
+            navaction.classList.remove('text-gray-800')
+            navaction.classList.add('text-white')
+          }
           //Use to switch toggleColour colours
           for (var i = 0; i < toToggle.length; i++) {
             toToggle[i].classList.add('text-gray-800')
@@ -373,10 +391,13 @@
           navcontent.classList.add('bg-white')
         } else {
           header.classList.remove('bg-white')
-          navaction.classList.remove('gradient')
-          navaction.classList.add('bg-white')
-          navaction.classList.remove('text-white')
-          navaction.classList.add('text-gray-800')
+          if (navaction) {
+            navaction.classList.remove('gradient')
+            navaction.classList.add('bg-white')
+            navaction.classList.remove('text-white')
+            navaction.classList.add('text-gray-800')
+          }
+
           //Use to switch toggleColour colours
           for (var i = 0; i < toToggle.length; i++) {
             toToggle[i].classList.add('text-white')
