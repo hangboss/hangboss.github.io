@@ -348,6 +348,7 @@
     <section id="download" class="bg-white border-b py-8">
       <div class="flex md:flex-row flex-col items-center justify-center">
         <a
+          id="macos-download"
           href="./assets/bin/mouseless-v1.0.0.dmg"
           class="md:mr-6 inline-block bg-gray-900 text-white text-center font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
         >
@@ -359,6 +360,7 @@
         </a>
 
         <a
+          id="windows-download"
           href="./assets/bin/mouseless-v1.0.0.exe"
           download="mouseless.exe"
           class="inline-block bg-gray-900 text-white text-center font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
@@ -391,6 +393,32 @@
               {
                 item_id: 'subscribe',
                 item_name: 'subscribe',
+              },
+            ],
+          })
+        })
+
+      document
+        .getElementById('macos-download')
+        .addEventListener('click', function () {
+          gtag('event', 'select_item', {
+            items: [
+              {
+                item_id: 'download',
+                item_name: 'macos',
+              },
+            ],
+          })
+        })
+
+      document
+        .getElementById('windows-download')
+        .addEventListener('click', function () {
+          gtag('event', 'select_item', {
+            items: [
+              {
+                item_id: 'download',
+                item_name: 'windows',
               },
             ],
           })
