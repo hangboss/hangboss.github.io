@@ -26,6 +26,7 @@ jobs:
       - name: DeployStatic
         uses: peaceiris/actions-gh-pages@v4
         with:
+          publish_dir: ./
           exclude_assets: '.github,blog'
           github_token: ${{ secrets.GITHUB_TOKEN }}
 
