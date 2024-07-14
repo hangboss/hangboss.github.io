@@ -13,9 +13,8 @@ export default defineConfig({
   head: [['link', { rel: 'icon', href: '/blog/favicon.ico' }]],
   themeConfig: {
     posts: await getPosts(pageSize),
-    website: 'https://github.com/airene/vitepress-blog-pure', //copyright link
     comment: {
-      repo: 'airene/vitepress-blog-pure',
+      repo: 'hangboss/hangboss.github.io',
       themes: 'github-light',
       issueTerm: 'pathname'
     },
