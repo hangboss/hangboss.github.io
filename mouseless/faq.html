@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Mouseless - Efficient and Comfortable Keyboard Control</title>
+    <meta
+      name="description"
+      content="Mouseless is a revolutionary software that allows you to efficiently and comfortably control your computer with your keyboard, eliminating the need for a mouse and preventing wrist pain."
+    />
+    <meta
+      name="keywords"
+      content="mouseless, keyboard control, mouse alternative, prevent wrist pain, efficiency, productivity software, health"
+    />
+    <link
+      rel="shortcut icon"
+      href="./assets/img/favicon.ico"
+      type="image/x-icon"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700"
+      rel="stylesheet"
+      3
+    />
+
+    <!--Replace with your tailwind.css once created-->
+    <link
+      href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700"
+      rel="stylesheet"
+    />
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-1G0RSTSSGX"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || []
+      function gtag() {
+        dataLayer.push(arguments)
+      }
+      gtag('js', new Date())
+
+      gtag('config', 'G-1G0RSTSSGX')
+    </script>
+  </head>
+  <body
+    class="leading-normal tracking-normal bg-white text-gray-900 gradient"
+    style="font-family: 'Source Sans Pro', sans-serif"
+  >
+    <!--Nav-->
+    <nav id="header" class="fixed w-full bg-white top-0 z-50 text-white">
+      <div
+        class="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 py-2"
+      >
+        <div class="pl-4 flex items-center">
+          <div
+            class="toggleColour text-black no-underline hover:no-underline font-bold text-2xl lg:text-4xl"
+          >
+            MOUSELESS
+          </div>
+        </div>
+        <div
+          class="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden mt-2 lg:mt-0 bg-white lg:bg-transparent text-black p-4 lg:p-0 z-20"
+          id="nav-content"
+        ></div>
+      </div>
+      <div class="border-b border-gray-800 opacity-25 my-0 py-0" />
+    </nav>
+    <div class="h-20 md:h-24"></div>
+    <h1 class="px-2 md:text-center text-4xl md:text-7xl">FAQs</h1>
+    <div class="container px-2 lg:px-24 mx-auto">
+      <!-- question -->
+      <div class="text-xl md:text-3xl my-4 md:my-8">Can't open the software in macOS?</div>
+      <img
+        class="block max-h-80"
+        src="./assets/img/open-warning.jpg"
+        alt="open warning"
+      />
+      <!-- answer -->
+      <div class="text-base my-4">
+        Open the Terminal and type the following command:
+        <code
+          class="my-2 block w-full whitespace-nowrap lg:w-2/3 overflow-x-auto bg-gray-100 p-2 rounded-md text-sm font-mono"
+        >
+          xattr -d com.apple.quarantine /Applications/Mouseless.app
+          <br />
+          codesign --force --deep --sign - /Applications/Mouseless.app
+        </code>
+        If after doing this, the software still cannot be opened, please try the following operations: Settings - Security & Privacy - Accessibility - Allow Mouseless. If you have already performed this operation, please remove Mouseless and perform it again.
+      </div>
+    </div>
+  </body>
+</html>
