@@ -11,15 +11,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Build
+      - name: UseNode
         uses: actions/setup-node@master
         with:
           node-version: '18.x'
-      - run: cd blog
-      - run: npm i -g pnpm@8
-      - run: pnpm install
-      - run: pnpm build
-      - run: cd ..
+
+      - name: Build
+        run: |
+          npm i -g pnpm@8
+          pnpm install
+          pnpm build
+        working-directory: ./blog
 
       - name: DeployStatic
         uses: peaceiris/actions-gh-pages@v4
