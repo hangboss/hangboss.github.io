@@ -10,6 +10,7 @@ export default defineConfig({
   cacheDir: './node_modules/vitepress_cache',
   description: "Saul Stone's Blog",
   ignoreDeadLinks: true,
+  head: [['link', { rel: 'icon', href: '/blog/favicon.ico' }]],
   themeConfig: {
     posts: await getPosts(pageSize),
     website: 'https://github.com/airene/vitepress-blog-pure', //copyright link
