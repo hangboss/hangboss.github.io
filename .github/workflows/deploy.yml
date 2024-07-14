@@ -15,7 +15,8 @@ jobs:
         uses: actions/setup-node@master
         with:
           node-version: '18.x'
-      - run: cd blog & npm i -g pnpm@8
+      - run: cd blog
+      - run: npm i -g pnpm@8
       - run: pnpm install
       - run: pnpm build
       - run: cd ..
