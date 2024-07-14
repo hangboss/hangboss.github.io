@@ -1,0 +1,34 @@
+name: deploy
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Build
+        uses: actions/setup-node@master
+        with:
+          node-version: '18.x'
+      - run: cd blog & npm i -g pnpm@8
+      - run: pnpm install
+      - run: pnpm build
+      - run: cd ..
+
+      - name: DeployStatic
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          exclude_assets: '.github,blog'
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: DeployBlog
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          publish_dir: ./blog/.vitepress/dist
+          destination_dir: blog
+          github_token: ${{ secrets.GITHUB_TOKEN }}
