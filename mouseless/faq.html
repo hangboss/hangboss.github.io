@@ -61,7 +61,9 @@
           <div
             class="toggleColour text-black no-underline hover:no-underline font-bold text-2xl lg:text-4xl"
           >
-            <a href="https://hangboss.github.io/mouseless/index.html">MOUSELESS</a>
+            <a href="https://hangboss.github.io/mouseless/index.html"
+              >MOUSELESS</a
+            >
           </div>
         </div>
         <div
@@ -75,7 +77,9 @@
     <h1 class="px-2 md:text-center text-4xl md:text-7xl">FAQs</h1>
     <div class="container px-2 lg:px-24 mx-auto">
       <!-- question -->
-      <div class="text-xl md:text-3xl my-4 md:my-8">Can't open the software in macOS? (Including after reinstallation)</div>
+      <div class="text-xl md:text-3xl my-4 md:my-8">
+        Can't open the software in macOS? (Including after reinstallation)
+      </div>
       <img
         class="block max-h-80"
         src="./assets/img/open-warning.jpg"
@@ -83,7 +87,10 @@
       />
       <!-- answer -->
       <div class="text-base my-4">
-        <p class="mb-4">If you encounter issues opening Mouseless (whether it's a new installation or after reinstalling), follow these steps:</p>
+        <p class="mb-4">
+          If you encounter issues opening Mouseless (whether it's a new
+          installation or after reinstalling), follow these steps:
+        </p>
 
         <p class="mb-2">1. Open the Terminal and run these commands:</p>
         <code
@@ -94,12 +101,43 @@
           codesign --force --deep --sign - /Applications/Mouseless.app
         </code>
 
-        <p class="mt-4 mb-2">2. If the app still doesn't open, check your security settings:</p>
+        <p class="mt-4 mb-2">
+          2. If the app still doesn't open, check your security settings:
+        </p>
         <ul class="list-disc ml-6 mb-4">
           <li>Go to System Settings → Security & Privacy → Accessibility</li>
           <li>Allow Mouseless access</li>
-          <li>If Mouseless is already in the list, try removing it and adding it again</li>
+          <li>
+            If Mouseless is already in the list, try removing it and adding it
+            again
+          </li>
         </ul>
+      </div>
+
+      <!-- question -->
+      <div class="text-xl md:text-3xl my-4 md:my-8">
+        Software disappeared in Windows?
+      </div>
+
+      <!-- answer -->
+      <div class="text-base my-4">
+        <p class="mb-4">
+          It's most likely blocked by Windows Security. Try these methods:
+        </p>
+
+        <p class="mb-4">
+          This may happen because Mouseless uses system-level mouse and keyboard events, which some security software might flag as suspicious.
+        </p>
+
+        <p class="mb-2">
+          1. Open Windows Security - Virus & threat protection - Protection
+          history, check if Mouseless has been blocked, and if so, restore it
+        </p>
+        <p class="mb-2">
+          2. In the same location, click on Manage settings - Add or remove exclusions,
+          add the folder containing Mouseless to the exclusion list
+        </p>
+        <p class="mb-2">3. Reopen Mouseless</p>
       </div>
     </div>
   </body>
