@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html :lang="currentLang">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mouseless Playground</title>
+    <meta
+      name="description"
+      content="Mouseless is a revolutionary software that allows you to efficiently and comfortably control your computer with your keyboard, eliminating the need for a mouse and preventing wrist pain."
+    />
+    <meta
+      name="keywords"
+      content="mouseless, without a mouse, mouse simulator, keyboard control, keyboard and mouse Simulator, mouse alternative, prevent wrist pain by the mouse"
+    />
+    <link
+      rel="shortcut icon"
+      href="./assets/img/favicon.ico"
+      type="image/x-icon"
+    />
+    <!-- Google Material Icons -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css"
+    />
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <!-- Screenfull.js -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/screenfull.js/5.2.0/screenfull.min.js"
+      integrity="sha512-GoG2/bE6QSPKSrjuoII6iPL2ODnwUJvFgysFYLTW2ltpx6G5nj+mYvhPq5rLPZby0rdMFU2fo4BMlWND7+QZ5g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-1G0RSTSSGX"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || []
+      function gtag() {
+        dataLayer.push(arguments)
+      }
+      gtag('js', new Date())
+
+      gtag('config', 'G-1G0RSTSSGX')
+    </script>
+    <script type="text/javascript">
+      ;(function (c, l, a, r, i, t, y) {
+        c[a] =
+          c[a] ||
+          function () {
+            ;(c[a].q = c[a].q || []).push(arguments)
+          }
+        t = l.createElement(r)
+        t.async = 1
+        t.src = 'https://www.clarity.ms/tag/' + i
+        y = l.getElementsByTagName(r)[0]
+        y.parentNode.insertBefore(t, y)
+      })(window, document, 'clarity', 'script', 'nbmfnwvtow')
+    </script>
+  </head>
+  <body class="bg-gray-50">
+    <div id="app" class="max-w-7xl mx-auto p-8 md:p-12">
+      <!-- Top Control Bar -->
+      <div class="fixed top-6 right-6 flex items-center gap-6">
+        <!-- Fullscreen Button -->
+        <button
+          @click="toggleFullscreen"
+          class="h-10 flex items-center gap-2 px-4 py-2 bg-white shadow-sm hover:bg-gray-50 rounded-lg transition-colors duration-200"
+          :title="t.controls.enterFullscreen"
+        >
+          <!-- Enter Fullscreen Icon -->
+          <i class="material-icons">fullscreen</i>
+        </button>
+
+        <!-- Platform Selection -->
+        <div class="h-10 flex items-center gap-1 bg-white rounded-lg shadow-sm">
+          <button
+            :class="{ 'bg-blue-500 text-white': platform === 'windows', 'text-gray-700': platform !== 'windows' }"
+            class="h-full px-4 py-2 rounded-l-lg transition-colors duration-200"
+            @click="platform = 'windows'"
+          >
+            {{ t.platform.windows }}
+          </button>
+          <div class="w-px h-5 bg-gray-200"></div>
+          <button
+            :class="{ 'bg-blue-500 text-white': platform === 'macos', 'text-gray-700': platform !== 'macos' }"
+            class="h-full px-4 py-2 rounded-r-lg transition-colors duration-200"
+            @click="platform = 'macos'"
+          >
+            {{ t.platform.macos }}
+          </button>
+        </div>
+
+        <!-- Language Dropdown -->
+        <div class="relative">
+          <button
+            ref="langButton"
+            @click="toggleLanguageDropdown"
+            class="h-10 flex items-center gap-2 px-4 py-2 bg-white shadow-sm hover:bg-gray-50 rounded-lg"
+          >
+            <span>{{ t.controls.language }}</span>
+            <i
+              class="material-icons text-sm transition-transform duration-200"
+              style="font-size: 18px"
+              :class="{ 'rotate-180': showLanguageDropdown }"
+              >arrow_drop_down</i
+            >
+          </button>
+          <div
+            v-show="showLanguageDropdown"
+            ref="langDropdown"
+            class="absolute right-0 mt-2 w-40 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50"
+          >
+            <button
+              @click="selectLanguage('en')"
+              class="w-full px-5 py-3 text-left hover:bg-gray-100 transition-colors duration-200"
+              :class="{ 'text-blue-500 font-medium': currentLang === 'en' }"
+            >
+              English
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <header class="text-center my-16 pt-8">
+        <h1 class="text-5xl font-bold mb-6 text-blue-500">{{ title }}</h1>
+      </header>
+
+      <main class="mx-auto max-w-4xl">
+        <div
+          v-if="!started"
+          class="text-center p-16 bg-white rounded-2xl shadow-md hover:shadow-lg transition-shadow duration-300 mx-auto"
+        >
+          <h2 class="text-3xl font-bold mb-6">{{ t.welcome.title }}</h2>
+          <p
+            class="mb-10 text-gray-600 text-xl leading-relaxed max-w-2xl mx-auto"
+          >
+            {{ t.welcome.description }}
+          </p>
+
+          <!-- Mouseless Launch Tips -->
+          <div class="mb-10 p-6 bg-blue-50 border border-blue-200 rounded-xl">
+            <h3 class="font-bold text-xl mb-3 text-blue-700">
+              {{ t.welcome.preparation }}
+            </h3>
+            <ul class="text-left space-y-3 text-blue-800">
+              <li class="flex items-center gap-2">
+                <span
+                  class="flex items-center justify-center w-5 h-5 rounded-full bg-blue-600 text-white text-xs font-bold"
+                  >1</span
+                >
+                <span>{{ t.welcome.step1 }}</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <span
+                  class="flex items-center justify-center w-5 h-5 rounded-full bg-blue-600 text-white text-xs font-bold"
+                  >2</span
+                >
+                <span>{{ t.welcome.step2 }}</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <span
+                  class="flex items-center justify-center w-5 h-5 rounded-full bg-blue-600 text-white text-xs font-bold"
+                  >3</span
+                >
+                <span>{{ t.welcome.step3 }}</span>
+                <button
+                  @click="toggleFullscreen"
+                  class="inline-flex items-center ml-1 px-2 py-1 bg-blue-600 text-white text-sm rounded hover:bg-blue-700 transition-colors"
+                >
+                  {{ t.controls.fullscreenButton }}
+                  <i class="material-icons ml-1" style="font-size: 16px"
+                    >fullscreen</i
+                  >
+                </button>
+              </li>
+            </ul>
+          </div>
+
+          <button
+            @click="startTutorial"
+            class="px-10 py-5 bg-gradient-to-r from-green-500 to-green-400 text-white rounded-xl text-xl font-medium hover:from-green-600 hover:to-green-500 transition-all duration-300 hover:shadow-md"
+          >
+            {{ t.welcome.startButton }}
+          </button>
+        </div>
+
+        <button
+          v-if="started"
+          @click="toggleQuickJump"
+          class="fixed right-10 bottom-10 px-8 py-5 text-white rounded-full shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl z-10 flex items-center gap-3"
+          :class="{ 'bg-green-500 hover:bg-green-600': showQuickJump, 'bg-blue-500 hover:bg-blue-600': !showQuickJump }"
+        >
+          <span class="font-medium text-lg">{{ t.controls.quickJump }}</span>
+          <span class="font-mono" v-if="!showQuickJump">↑</span>
+          <span class="font-mono" v-else>↵</span>
+        </button>
+
+        <div
+          v-if="showQuickJump"
+          class="fixed inset-0 flex items-center justify-center z-50"
+        >
+          <div
+            class="absolute inset-0 bg-black bg-opacity-50 backdrop-blur-sm"
+            @click="toggleQuickJump"
+          ></div>
+          <div
+            class="relative bg-white p-10 rounded-xl shadow-xl max-w-2xl w-11/12"
+          >
+            <h3 class="text-3xl font-bold text-center mb-4">
+              {{ t.controls.quickJump }}
+            </h3>
+            <p class="text-base text-gray-500 text-center mb-8">
+              {{ t.controls.closePopup }}
+            </p>
+            <div class="space-y-3">
+              <button
+                v-for="step in steps"
+                :key="step.id"
+                @click="jumpToStep(step.id)"
+                :class="{ 'bg-blue-500 text-white border-blue-600': currentStep.id === step.id, 'hover:bg-gray-50': currentStep.id !== step.id }"
+                class="w-full px-6 py-4 text-left border rounded-lg transition-colors duration-200 text-lg"
+              >
+                {{ step.title }}
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div
+          v-else-if="started"
+          class="bg-white rounded-xl shadow-md p-10 mb-16"
+        >
+          <div class="relative h-3 bg-gray-200 rounded-full mb-10">
+            <div
+              class="absolute top-0 left-0 h-full bg-blue-500 rounded-full transition-all duration-300"
+              :style="{ width: progress + '%' }"
+            ></div>
+          </div>
+
+          <div class="mb-12">
+            <h3 class="text-3xl font-bold mb-6">{{ currentStep.title }}</h3>
+            <div class="text-gray-600 mb-8 text-lg leading-relaxed">
+              {{ currentStep.description }}
+            </div>
+            <div
+              v-if="currentStep.isGrid"
+              class="grid grid-cols-3 gap-4 mx-auto mb-12"
+              style="max-width: 400px"
+            >
+              <template v-for="key in currentStep.keys">
+                <div
+                  :class="{ 'bg-green-500 text-white border-green-600': activeKeys.includes(key.key), 'bg-gray-50 border-gray-300': !activeKeys.includes(key.key) }"
+                  class="aspect-square flex items-center justify-center border rounded-xl text-center transition-colors duration-200 text-3xl font-medium"
+                >
+                  {{ key.key }}
+                </div>
+              </template>
+            </div>
+            <div
+              v-else-if="currentStep.isCombo"
+              class="flex flex-wrap gap-4 justify-center mb-12"
+            >
+              <template v-for="combo in currentStep.keys">
+                <div
+                  class="flex items-center gap-2 px-6 py-4 border rounded-xl bg-gray-50 border-gray-300"
+                >
+                  <span
+                    class="font-medium text-base bg-gray-200 px-3 py-1.5 rounded"
+                    >CAPS</span
+                  >
+                  <span class="text-gray-500">+</span>
+                  <span
+                    class="font-medium text-base bg-gray-200 px-3 py-1.5 rounded"
+                    >{{ combo.split(' + ')[1] }}</span
+                  >
+                </div>
+              </template>
+            </div>
+            <div
+              v-else-if="currentStep.isOverview"
+              class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12"
+            >
+              <div
+                v-for="section in currentStep.sections"
+                :key="section.title"
+                class="bg-gray-50 p-5 rounded-xl"
+              >
+                <div class="flex items-center gap-3 mb-4">
+                  <h4 class="font-bold text-lg">{{ section.title }}</h4>
+                  <span class="text-base text-gray-500"
+                    >{{ section.desc }}</span
+                  >
+                </div>
+                <div
+                  v-if="section.isGrid"
+                  class="grid grid-cols-3 gap-2.5"
+                  style="max-width: 240px"
+                >
+                  <template v-for="key in section.keys">
+                    <div
+                      class="aspect-square flex items-center justify-center border rounded-lg bg-white text-center text-xl font-medium"
+                    >
+                      {{ key }}
+                    </div>
+                  </template>
+                </div>
+                <div v-else class="flex flex-wrap gap-2.5">
+                  <template v-for="key in section.keys">
+                    <div
+                      class="px-3 py-2 border rounded-lg bg-white text-center font-medium"
+                      style="min-width: 36px"
+                    >
+                      {{ key }}
+                    </div>
+                  </template>
+                </div>
+              </div>
+            </div>
+            <div v-else class="flex flex-wrap gap-4 justify-center mb-12">
+              <template v-for="key in currentStep.keys">
+                <div
+                  :class="{ 'bg-green-500 text-white border-green-600': activeKeys.includes(key), 'bg-gray-50 border-gray-300': !activeKeys.includes(key) }"
+                  class="min-w-16 px-6 py-4 border rounded-xl text-center transition-colors duration-200 text-lg"
+                >
+                  {{ key }}
+                </div>
+              </template>
+            </div>
+            <div
+              class="p-10 border-2 border-dashed border-gray-300 rounded-xl"
+              style="min-height: 400px"
+              ref="practiceArea"
+            >
+              <!-- Dynamic practice area content will be generated based on current step -->
+            </div>
+          </div>
+
+          <div class="flex justify-between gap-6 pt-4">
+            <button
+              @click="prevStep"
+              :disabled="currentStepIndex === 0"
+              :class="{ 'opacity-50 cursor-not-allowed': currentStepIndex === 0 }"
+              class="px-6 py-3 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors duration-200 flex items-center gap-3 text-lg"
+            >
+              <span>{{ t.controls.prev }}</span>
+              <span class="text-gray-500 font-mono">←</span>
+            </button>
+            <button
+              @click="nextStep"
+              :disabled="currentStepIndex === steps.length - 1"
+              :class="{ 'opacity-50 cursor-not-allowed': currentStepIndex === steps.length - 1 }"
+              class="px-6 py-3 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors duration-200 flex items-center gap-3 text-lg"
+            >
+              <span>{{ t.controls.next }}</span>
+              <span class="text-gray-500 font-mono">→</span>
+            </button>
+            <button
+              @click="restartTutorial"
+              class="px-6 py-3 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors duration-200 flex items-center gap-3 text-lg"
+            >
+              <span>{{ t.controls.restart }}</span>
+              <span class="font-mono">↓</span>
+            </button>
+          </div>
+        </div>
+      </main>
+    </div>
+    <script src="./playground/i18n.js"></script>
+    <script src="./playground/app.js"></script>
+  </body>
+</html>
